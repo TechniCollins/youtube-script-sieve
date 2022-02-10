@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+html, body, #content{
+	height: 100%;
+	width: 100%;
+}
+
+body{
+	background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(70,252,201,0) 100%);
+	align-items: center;
+	justify-content: center;
+}
+
+.ps{
+	padding: 30px;
+	height: 100%;
+	width: 100%;
+}
+
+.ta {
+	display: block;
+	width: 850px;
+	padding: 5px;
+	height: 90%;
+	font: 20px/28px 'Open Sans', sans-serif;
+	overflow-y: scroll;
+}
+
+#sta{
+	background-color: #fff;
+}
+
+#submit, #back-to-editor{
+	display: block;
+	margin: 20px 0;
+	padding: 10px;
+	font: 20px 'Opens Sans', sans-serif;
+	width: 300px;
+	color: #fff;
+}
+
+#submit{
+	background-color: #1d880c;
+	cursor:  pointer;
+  border: none;
+  border-radius: 6px;
+}
+
+mark{
+	cursor: pointer;
+}
+
+.red {
+  background-color: #f50c0a;
+  color: #0a1702;
+}
+
+.yellow {
+  background-color: #f0f906;
+  color: #111;
+}
+
+.orange {
+  background-color: #f28b0d;
+  color: #0a1702;
+}
+
+#rd {
+	white-space: pre-wrap; /* to maintain new lines and spaces */
+	overflow-y: scroll;
+	background-color: #ddd;
+	border: 1px solid #111;
+}

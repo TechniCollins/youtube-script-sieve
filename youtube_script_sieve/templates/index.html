@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+	<head>
+		<meta charset="utf-8">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<title></title>
+	</head>
+	<body>
+		<div class = "container" id = "content">
+			<!-- page section (ps)-->
+			<section class = "ps" id = "editor">
+				<!-- script text area (sta)-->
+				<div contenteditable id="sta" class = "ta" placeholder="Paste your script here"></div>
+
+				<button id="submit" onclick="analyze();">ANALYZE</button>
+			</section>
+			<section class = "ps" id = "analysis">
+			</section>
+		</div>
+	</body>
+</html>
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="text/javascript">
+	function analyze() {
+		/* Show loading svg in button */
+		$("#submit").html("ANALYZING ...");
+		$("#submit").disabled=true;
+
+		const text = document.getElementById('sta').innerHTML;
+
+		$.ajax({
+		  url: 'analyze/',
+		  headers: { "X-CSRFToken": "{{ csrf_token }}" },
+		  type: "post",
+		  data: {
+		    'text': text,
+		  },
+		  success: function (data) {
+		    $('#analysis').html(data);
+		    document.getElementById("analysis").scrollIntoView();
+		    /* Restore button */
+		    $("#submit").html("ANALYZE");
+		    $("#submit").disabled=false;
+		  },
+		  error: function (data) {
+		  	alert(
+		  		"Something Went wrong. Possible causes of this error; \n1) Your paragraph is too long to be sent to the backend\n2) No internet connection"
+		  	);
+		  	$("#submit").html("ANALYZE");
+		  	$("#submit").disabled=false;
+		  }
+		});
+	}
+</script>

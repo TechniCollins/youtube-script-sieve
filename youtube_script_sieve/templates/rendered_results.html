@@ -1,0 +1,51 @@
+<!-- results div (rd) -->
+<div contenteditable="true" id = "rd" class = "ta" spellcheck="false">{{ text | safe}}</div>
+
+<button id = "back-to-editor" type="button" class="btn btn-primary" onclick="document.getElementById('editor').scrollIntoView();">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"></path>
+    </svg>
+    Back to Editor
+</button>
+
+<div class="modal fade" id="synonym-modal" tabindex="-1" role="dialog" aria-labelledby="synonym" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <p id = "modal-prompt"></p>
+      <input type="text" value="" id="word" hidden>
+      <input type="text" id="synonym">
+      <button id="submit_synonym" onclick="addSynonym()">ADD</button>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
+  function showSynonymForm(element) {
+      word = element.innerText;
+      $('#modal-prompt').html(`<p>Add synonym for <b>${word}</b></p>`);
+      $('#word').val(word);
+      $('#synonym-modal').modal('show');
+  }
+
+  function addSynonym(argument) {
+    const word = $('#word').val();
+    const synonym = $('#synonym').val();
+    $.ajax({
+      url: 'add-synonym',
+      data: {
+        'word': word,
+        'synonym': synonym
+      },
+      success: function (data) {
+        alert(data)
+      },
+      error: function (data) {
+        alert("Failed to add synonym");
+      }
+    });
+  }
+</script>
